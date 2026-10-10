@@ -10,9 +10,11 @@ Team members and concrete contributions
 Name: Rafael Siverbo
 Contribution:
 Completed and implimented task 1 and task 2
+implimented task 3 and 4
 
-Name:
+Name: Mykhailo Asmar
 Contribution:
+Coded task 3 and 4
 
 Name:
 Contribution:
