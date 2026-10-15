@@ -11,10 +11,13 @@ Name: Rafael Siverbo
 Contribution:
 Completed and implimented task 1 and task 2
 implimented task 3 and 4
+implimented task 5 and 6
+Tested task 1 - 6
 
 Name: Mykhailo Asmar
 Contribution:
 Coded task 3 and 4
+Coded task 5 and 6
 
 Name:
 Contribution:
