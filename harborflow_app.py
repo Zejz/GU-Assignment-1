@@ -81,9 +81,11 @@ while Running:
         else:  # "P"
             return 1.60
 
+
     def calculate_quote(distance, weight, service_code):
         subtotal = 45.00 + distance * 6.50 + weight * 4.00
         return subtotal * get_service_multiplier(service_code)
+
 
     def read_positive_number(prompt):
         while True:
@@ -96,6 +98,7 @@ while Running:
                 if value > 0:
                     return value
                 print("Error - Value must be greater than zero.")
+
 
     def read_service_code(prompt):
         while True:
@@ -254,6 +257,98 @@ while Running:
 
     
     """Choice 7"""
+
+
+    def read_completed_deliveries(prompt):
+        """Prompt for and read completed deliveries."""
+        while True:
+            try:
+                values = input(prompt).split(",")
+                if len(values) != 7:
+                    print("Error: Please enter exactly 7 integers.")
+                    continue
+                deliveries = [int(x) for x in values]
+                if any(delivery <= 0 for delivery in deliveries):
+                    print("Error: All delivery values must be positive integers.")
+                    continue
+                return deliveries
+            except ValueError:
+                print("Error: Please enter valid integers.")
+
+
+    def calculate_total_deliveries(completed):
+        total = 0
+        for delivery in completed:
+            total += delivery
+        return total
+
+
+    def calculate_total_deliveries(completed):
+        total = 0
+        for delivery in completed:
+            total += delivery
+        return total
+
+
+    def calculate_average(total_deliveries):
+        average = total_deliveries / 7
+        return average
+
+
+    def calculate_highest(completed):
+        highest = None
+        highest_day = None
+        weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        position = 0
+        for delivery in completed:
+            if highest is None or delivery > highest:
+                highest = delivery
+                highest_day = weekdays[position]
+            position += 1
+        return highest, highest_day
+
+
+    def calculate_lowest(completed):
+        lowest = None
+        lowest_day = None
+        weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        position = 0
+        for delivery in completed:
+            if lowest is None or delivery < lowest:
+                lowest = delivery
+                lowest_day = weekdays[position]
+            position += 1
+        return lowest, lowest_day
+
+
+    def calculate_target_days(completed, daily_target):
+        target_days = 0
+        for delivery in completed:
+            if delivery >= daily_target:
+                target_days += 1
+        return target_days
+
+
+    def dispatch_report():
+        completed = read_completed_deliveries("Completed deliveries: ")
+        daily_target = int(input("Weekly target: ")) / 7
+        print("Weekly dispatch report")
+        total = calculate_total_deliveries(completed)
+        print(f"Total deliveries: {total}")
+        average = calculate_average(total)
+        print(f"Average per daily: {average:.2f}")
+        highest, highest_day = calculate_highest(completed)
+        print(f"Highest day: {highest_day} ({highest})")
+        lowest, lowest_day = calculate_lowest(completed)
+        print(f"Lowest day: {lowest_day} ({lowest})")
+        target_days = calculate_target_days(completed, daily_target)
+        print(f"Days meeting target: {target_days}")
+
+
+    if Choice == "7":
+        dispatch_report()
+
+
 pass
 
 
