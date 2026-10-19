@@ -20,7 +20,9 @@ while Running:
     5. Check van capacity
     6. Classify service performance
     7. Produce weekly dispatch report
+    8. Compare delivery scenarios
     Select service: """)
+
 
     """"Choice 1"""
 
@@ -81,11 +83,9 @@ while Running:
         else:  # "P"
             return 1.60
 
-
     def calculate_quote(distance, weight, service_code):
         subtotal = 45.00 + distance * 6.50 + weight * 4.00
         return subtotal * get_service_multiplier(service_code)
-
 
     def read_positive_number(prompt):
         while True:
@@ -98,7 +98,6 @@ while Running:
                 if value > 0:
                     return value
                 print("Error - Value must be greater than zero.")
-
 
     def read_service_code(prompt):
         while True:
@@ -129,7 +128,6 @@ while Running:
                 unique_labels.append(label)
         return unique_labels
 
-
     def print_label_list(labels):
         print("Unique load list:")
         number = 1
@@ -138,12 +136,10 @@ while Running:
             number += 1
         print(f"Total unique parcels: {len(labels)}")
 
-
     def labels_service():
         scanned_text = input("Scanned labels: ")
         labels = consolidate_labels(scanned_text)
         print_label_list(labels)
-
 
     if Choice == "4":
         labels_service()
@@ -167,7 +163,6 @@ while Running:
             weights.append(weight)
         return weights
 
-
     def read_weights(prompt):
         """Keep asking until valid weights are provided."""
         while True:
@@ -175,7 +170,6 @@ while Running:
             if len(weights) > 0:
                 return weights
             print("Error - Value must be greater than zero.")
-
 
     def check_van_capacity(capacity, weights):
         """Evaluate parcels left to right against van capacity."""
@@ -191,7 +185,6 @@ while Running:
                 decisions.append(False)
         return decisions, accepted, loaded
 
-
     def print_capacity_report(capacity, decisions, accepted, loaded):
         """Print the decision for each parcel and the final summary."""
         for i, decision in enumerate(decisions, start=1):
@@ -200,7 +193,6 @@ while Running:
         print(f"Accepted parcels: {accepted}")
         print(f"Loaded weight: {loaded:.2f} kg")
         print(f"Remaining capacity: {capacity - loaded:.2f} kg")
-
 
     def capacity_service():
         """Task 5: read capacity and weights, then print report."""
@@ -227,7 +219,6 @@ while Running:
                 pass
             print("Error - Value must be greater than zero.")
 
-
     def classify_performance(promised, actual, damaged):
         """Determine delay and service status."""
         delay = actual - promised
@@ -241,7 +232,6 @@ while Running:
             status = "MAJOR DELAY"
         return delay, status
 
-
     def performance_service():
         """Task 6: read route figures, print delay and status."""
         promised = read_non_negative_int("Promised minutes: ")
@@ -250,7 +240,6 @@ while Running:
         delay, status = classify_performance(promised, actual, damaged)
         print(f"Delay: {delay} minutes")
         print(f"Service status: {status}")
-
 
     if Choice == "6":
         performance_service()
@@ -265,23 +254,15 @@ while Running:
             try:
                 values = input(prompt).split(",")
                 if len(values) != 7:
-                    print("Error: Please enter exactly 7 integers.")
+                    print("Error - Weekly report requires 7 delivery counts.")
                     continue
                 deliveries = [int(x) for x in values]
                 if any(delivery <= 0 for delivery in deliveries):
-                    print("Error: All delivery values must be positive integers.")
+                    print("Error - All delivery values must be positive integers.")
                     continue
                 return deliveries
             except ValueError:
-                print("Error: Please enter valid integers.")
-
-
-    def calculate_total_deliveries(completed):
-        total = 0
-        for delivery in completed:
-            total += delivery
-        return total
-
+                print("Error - Please enter valid integers.")
 
     def calculate_total_deliveries(completed):
         total = 0
@@ -289,11 +270,15 @@ while Running:
             total += delivery
         return total
 
+    def calculate_total_deliveries(completed):
+        total = 0
+        for delivery in completed:
+            total += delivery
+        return total
 
     def calculate_average(total_deliveries):
         average = total_deliveries / 7
         return average
-
 
     def calculate_highest(completed):
         highest = None
@@ -307,7 +292,6 @@ while Running:
             position += 1
         return highest, highest_day
 
-
     def calculate_lowest(completed):
         lowest = None
         lowest_day = None
@@ -320,14 +304,12 @@ while Running:
             position += 1
         return lowest, lowest_day
 
-
     def calculate_target_days(completed, daily_target):
         target_days = 0
         for delivery in completed:
             if delivery >= daily_target:
                 target_days += 1
         return target_days
-
 
     def dispatch_report():
         completed = read_completed_deliveries("Completed deliveries: ")
@@ -344,11 +326,51 @@ while Running:
         target_days = calculate_target_days(completed, daily_target)
         print(f"Days meeting target: {target_days}")
 
-
     if Choice == "7":
         dispatch_report()
 
 
+    """Choice 8"""
+
+
+    def quote_service():
+            distance = read_positive_number("Distance (km): ")
+            weight = read_positive_number("Weight (kg): ")
+            service_code = "S"
+            quote_S = calculate_quote(distance, weight, service_code)
+            service_code = "X"
+            quote_X = calculate_quote(distance, weight, service_code)
+            service_code = "P"
+            quote_P = calculate_quote(distance, weight, service_code)
+            print("Service comparison")
+            print(f"Standard: {quote_S:.2f} SEK")
+            print(f"Express: {quote_X:.2f} SEK")
+            print(f"Priority: {quote_P:.2f} SEK")
+
+            print("Cheapest service: ", end="")
+            if quote_S <= quote_X and quote_S <= quote_P:
+                print("Standard")
+            elif quote_X <= quote_P:
+                print("Express")
+            else:
+                print("Priority")
+
+            print("Most expensive service: ", end="")
+            if quote_S >= quote_X and quote_S >= quote_P:
+                print("Standard")
+            elif quote_X >= quote_P:
+                print("Express")
+            else:
+                print("Priority")
+
+    if Choice == "8":
+        quote_service()
+
+
+
+    else:
+        print("Error - Select a service from 1 to 8.")
+        
 pass
 
 
