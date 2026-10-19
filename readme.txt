@@ -13,6 +13,7 @@ Contribution:
 Coded task 1, 2, 7, 8 and 9
 implimented task 1 - 9
 Tested task 1 - 7
+P.S I realized that the way we coded this assignment was (for the lack of a better word) shit so decided to make it in a different way the next assignment.
 
 Name: Mykhailo Asmar
 Contribution:
