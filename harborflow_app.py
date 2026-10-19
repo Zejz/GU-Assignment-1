@@ -286,7 +286,7 @@ while Running:
         weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         position = 0
         for delivery in completed:
-            if highest is None or delivery > highest:
+            if highest is None or delivery >= highest:
                 highest = delivery
                 highest_day = weekdays[position]
             position += 1
@@ -298,7 +298,7 @@ while Running:
         weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         position = 0
         for delivery in completed:
-            if lowest is None or delivery < lowest:
+            if lowest is None or delivery <= lowest:
                 lowest = delivery
                 lowest_day = weekdays[position]
             position += 1
