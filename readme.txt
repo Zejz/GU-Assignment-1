@@ -3,6 +3,7 @@ HARBORFLOW DISPATCH CONSOLE - TEAM README
 Run instructions
 ----------------
 Command:
+run python harborflow_app.py
 Python version tested: 3.13
 
 Team members and concrete contributions
@@ -28,12 +29,12 @@ Contribution:
 Design notes
 ------------
 Main function boundaries:
-The code groups tasks into service functions that coordinate input, processing, and output, supported by calculation and reporting helpers.
+The console menu dispatches to separate services for reference validation, delivery quotes, label consolidation, capacity checks, performance classification, weekly reporting, and service comparison. Each service handles its task's input and output, with helper functions for validation and calculations.
 How input validation is organized:
-Dedicated validators check booking references, numeric inputs, service codes, parcel weights, and weekly delivery counts, usually repeating prompts until valid input is provided.
+Dedicated validators and input loops check booking references, positive numeric values, service codes, parcel weights, non-negative performance values, and weekly delivery counts. Most invalid values cause the relevant prompt to repeat.
 How shared calculations are reused:
-Quoting and comparison reuse the same pricing formula and service multipliers, while the weekly report reuses the delivery total to calculate its average.
+Single-service quotes and service comparisons use the same quote formula and service multipliers. The weekly report calculates totals and averages from the same seven daily delivery counts and uses helper functions to find high and low days.
 
 Known limitations
 -----------------
-None known.
+The weekly report accepts only positive daily delivery counts and reads the weekly target directly as an integer, so zero counts and invalid target input are not supported. The menu's invalid-selection message may also appear after selecting options 1 through 7.
