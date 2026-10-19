@@ -333,7 +333,7 @@ while Running:
     """Choice 8"""
 
 
-    def quote_service():
+    def quote_service2():
             distance = read_positive_number("Distance (km): ")
             weight = read_positive_number("Weight (kg): ")
             service_code = "S"
@@ -364,11 +364,11 @@ while Running:
                 print("Priority")
 
     if Choice == "8":
-        quote_service()
+        quote_service2()
 
 
 
-    else:
+    if Choice not in ("1", "2", "3", "4", "5", "6", "7", "8"):
         print("Error - Select a service from 1 to 8.")
         
 pass
